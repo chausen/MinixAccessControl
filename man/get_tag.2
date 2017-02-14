@@ -1,0 +1,43 @@
+.\" Author: Clay Hausen
+.\"
+.\"	@(#)GET_TAG.2	 2/5/17
+.\"
+.TH GET_TAG 2 "February 5, 2017"
+.UC 4
+.SH NAME
+get_tag, set_tag \- get/set process tag
+.SH SYNOPSIS
+.ft B
+.nf
+#include <lib.h>
+#include <unistd.h>
+
+int get_tag(int pid)
+int set_tag(int pid, int newvalue)
+.fi
+.ft R
+.SH DESCRIPTION
+.B Get_tag
+returns the value of tag for the process
+with PID equal to \fBpid\fP. The tag is used for
+access control and is always initialized to
+0 for new processes.
+.PP
+.B Set_tag
+sets the value of tag to \fBnewvalue\fP for the
+process with PID equal to \fBpid\fP.
+.RE
+.SH RETURN VALUE
+Upon successful completion, both \fBget_tag\fP and \fBset_tag\fP
+return the value of tag for the process whose pid was passed.
+Otherwise, a value of \-1 is returned.
+.SH ERRORS
+.B Get_tag
+will fail if the process whom called it does not pass in its
+own PID, or does not have root access.
+.PP
+.B Set_tag
+will fail if the process whom called it does not have root access, or
+if \fBnewvalue\fP is negative.
+.PP
+Both will fail if \fBpid\fP does not refer to a valid PID.
